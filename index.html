@@ -24,263 +24,308 @@
             function scroll(){
                 window.scrollBy(0, 700);
             }
-        </script>
-        <h2> 1. Enter parent genotypes (Up to 5 traits) </h2> <h3> Example: (FfGG and FFgg)   ---------      In this case, GG is one trait</h3>
-        
-        <h2> 2. Click the Make Punnett Square button </h2>
-        <canvas id="myCanvas" width="1000" height ="800">
-        </canvas>
-        
-        <script>
-            var numTraits;
-            var par1;
-            var par2;
-            var p1Gametes;
-            var p2Gametes;
-            var y;
-            var z;
-            var x;
-            var arr = [];
-            function start(){
-                par1 = prompt("Write the P1 Generation Genotype!");
-                numTraits = par1.length/2
-                par2 = prompt("Write the P2 Generation Genotypes!");
-                p1Gametes = createGametes(par1);
-                p2Gametes = createGametes(par2);
-                x = possibleOffSpring(p1Gametes,p2Gametes);
-                y = findNonRepetitiveGenes(x);
-                buildBox(x);
-            }
-        
-        
-        function createGametes(p1){
-            var gametes = [];
-            if(numTraits == 1){
-                gametes.push(p1.charAt(0));
-                gametes.push(p1.charAt(1));
-                return gametes;
-            }else if(numTraits == 2){
-                var first = p1.charAt(0) + p1.charAt(2);
-                var second = p1.charAt(0) + p1.charAt(3);
-                var third = p1.charAt(1) + p1.charAt(2);
-                var fourth = p1.charAt(1) + p1.charAt(3);
-                gametes.push(first);
-                gametes.push(second);
-                gametes.push(third);
-                gametes.push(fourth);
-                return gametes;
-            }else if(numTraits == 3){
-                var first = p1.charAt(0) + p1.charAt(2) + p1.charAt(4);
-                var second = p1.charAt(0) + p1.charAt(2) + p1.charAt(5);
-                var third = p1.charAt(0) + p1.charAt(3) + p1.charAt(4);
-                var fourth = p1.charAt(0) + p1.charAt(3) + p1.charAt(5);
-                var fifth = p1.charAt(0) + p1.charAt(2) + p1.charAt(4);
-                var sixth = p1.charAt(0) + p1.charAt(2) + p1.charAt(5);
-                var seventh= p1.charAt(0) + p1.charAt(3) + p1.charAt(4);
-                var eighth = p1.charAt(0) + p1.charAt(3) + p1.charAt(5);
-                gametes.push(first);
-                gametes.push(second);
-                gametes.push(third);
-                gametes.push(fourth);
-                gametes.push(fifth);
-                gametes.push(sixth);
-                gametes.push(seventh);
-                gametes.push(eighth);
-                return gametes;
-            }else if(numTraits == 4){
-                var first = p1.charAt(0) + p1.charAt(2) + p1.charAt(4) + p1.charAt(6);
-                var second = p1.charAt(0) + p1.charAt(2) + p1.charAt(4) + p1.charAt(7);
-                var third = p1.charAt(0) + p1.charAt(2) + p1.charAt(5) + p1.charAt(6);
-                var fourth  = p1.charAt(0) + p1.charAt(2) + p1.charAt(5) + p1.charAt(7);
-                var fifth = p1.charAt(0) + p1.charAt(3) + p1.charAt(4) + p1.charAt(6);
-                var sixth = p1.charAt(0) + p1.charAt(3) + p1.charAt(4) + p1.charAt(7);
-                var seventh = p1.charAt(0) + p1.charAt(3) + p1.charAt(5) + p1.charAt(6);
-                var eighth  = p1.charAt(0) + p1.charAt(3) + p1.charAt(5) + p1.charAt(7);
-                var ninth = p1.charAt(1) + p1.charAt(2) + p1.charAt(4) + p1.charAt(6);
-                var tenth = p1.charAt(1) + p1.charAt(2) + p1.charAt(4) + p1.charAt(7);
-                var eleventh = p1.charAt(1) + p1.charAt(2) + p1.charAt(5) + p1.charAt(6);
-                var twelth  = p1.charAt(1) + p1.charAt(2) + p1.charAt(5) + p1.charAt(7);
-                var thirteenth = p1.charAt(1) + p1.charAt(3) + p1.charAt(4) + p1.charAt(6);
-                var fourteenth = p1.charAt(1) + p1.charAt(3) + p1.charAt(4) + p1.charAt(7);
-                var fifteenth = p1.charAt(1) + p1.charAt(3) + p1.charAt(5) + p1.charAt(6);
-                var sixteenth  = p1.charAt(1) + p1.charAt(3) + p1.charAt(5) + p1.charAt(7);
-                gametes.push(first);
-                gametes.push(second);
-                gametes.push(third);
-                gametes.push(fourth);
-                gametes.push(fifth);
-                gametes.push(sixth);
-                gametes.push(seventh);
-                gametes.push(eighth);
-                gametes.push(ninth);
-                gametes.push(tenth);
-                gametes.push(eleventh);
-                gametes.push(twelth);
-                gametes.push(thirteenth);
-                gametes.push(fourteenth);
-                gametes.push(fifteenth);
-                gametes.push(sixteenth);
-                return gametes;
-            }else if(numTraits == 5){
-                var first = p1.charAt(0) + p1.charAt(2) + p1.charAt(4) + p1.charAt(6) + p1.charAt(8);
-                var second = p1.charAt(0) + p1.charAt(2) + p1.charAt(4) + p1.charAt(6) + p1.charAt(9);
-                var third = p1.charAt(0) + p1.charAt(2) + p1.charAt(4) + p1.charAt(7) + p1.charAt(8);
-                var fourth = p1.charAt(0) + p1.charAt(2) + p1.charAt(4) + p1.charAt(7) + p1.charAt(9);
-                var fifth = p1.charAt(0) + p1.charAt(2) + p1.charAt(5) + p1.charAt(6) + p1.charAt(8);
-                var sixth = p1.charAt(0) + p1.charAt(2) + p1.charAt(5) + p1.charAt(6) + p1.charAt(9);
-                var seventh = p1.charAt(0) + p1.charAt(2) + p1.charAt(5) + p1.charAt(7) + p1.charAt(8);
-                var eighth = p1.charAt(0) + p1.charAt(2) + p1.charAt(5) + p1.charAt(7) + p1.charAt(9);
-                var ninth = p1.charAt(0) + p1.charAt(3) + p1.charAt(4) + p1.charAt(6) + p1.charAt(8);
-                var tenth = p1.charAt(0) + p1.charAt(3) + p1.charAt(4) + p1.charAt(6) + p1.charAt(9);
-                var eleventh = p1.charAt(0) + p1.charAt(3) + p1.charAt(4) + p1.charAt(7) + p1.charAt(8);
-                var twelth = p1.charAt(0) + p1.charAt(3) + p1.charAt(4) + p1.charAt(7) + p1.charAt(9);
-                var thirteenth = p1.charAt(0) + p1.charAt(3) + p1.charAt(5) + p1.charAt(6) + p1.charAt(8);
-                var fourteenth = p1.charAt(0) + p1.charAt(3) + p1.charAt(5) + p1.charAt(6) + p1.charAt(9);
-                var fifteenth = p1.charAt(0) + p1.charAt(3) + p1.charAt(5) + p1.charAt(7) + p1.charAt(8);
-                var sixteenth = p1.charAt(0) + p1.charAt(3) + p1.charAt(5) + p1.charAt(7) + p1.charAt(9);
-                var seventeenth = p1.charAt(1) + p1.charAt(2) + p1.charAt(4) + p1.charAt(6) + p1.charAt(8);
-                var eighteenth = p1.charAt(1) + p1.charAt(2) + p1.charAt(4) + p1.charAt(6) + p1.charAt(9);
-                var nineteenth = p1.charAt(1) + p1.charAt(2) + p1.charAt(4) + p1.charAt(7) + p1.charAt(8);
-                var twentieth = p1.charAt(1) + p1.charAt(2) + p1.charAt(4) + p1.charAt(7) + p1.charAt(9);
-                var twentyOne = p1.charAt(1) + p1.charAt(2) + p1.charAt(5) + p1.charAt(6) + p1.charAt(8);
-                var twentyTwo = p1.charAt(1) + p1.charAt(2) + p1.charAt(5) + p1.charAt(6) + p1.charAt(9);
-                var twentyThree = p1.charAt(1) + p1.charAt(2) + p1.charAt(5) + p1.charAt(7) + p1.charAt(8);
-                var twentyFour = p1.charAt(1) + p1.charAt(2) + p1.charAt(5) + p1.charAt(7) + p1.charAt(9);
-                var twentyFive = p1.charAt(1) + p1.charAt(3) + p1.charAt(4) + p1.charAt(6) + p1.charAt(8);
-                var twentySix = p1.charAt(1) + p1.charAt(3) + p1.charAt(4) + p1.charAt(6) + p1.charAt(9);
-                var twentySeven = p1.charAt(1) + p1.charAt(3) + p1.charAt(4) + p1.charAt(7) + p1.charAt(8);
-                var twentyEight = p1.charAt(1) + p1.charAt(3) + p1.charAt(4) + p1.charAt(7) + p1.charAt(9);
-                var twentyNine = p1.charAt(1) + p1.charAt(3) + p1.charAt(5) + p1.charAt(6) + p1.charAt(8);
-                var thirty = p1.charAt(1) + p1.charAt(3) + p1.charAt(5) + p1.charAt(6) + p1.charAt(9);
-                var thirtyOne = p1.charAt(1) + p1.charAt(3) + p1.charAt(5) + p1.charAt(7) + p1.charAt(8);
-                var thirtyTwo = p1.charAt(1) + p1.charAt(3) + p1.charAt(5) + p1.charAt(7) + p1.charAt(9);
-                gametes.push(first);
-                gametes.push(second);
-                gametes.push(third);
-                gametes.push(fourth);
-                gametes.push(fifth);
-                gametes.push(sixth);
-                gametes.push(seventh);
-                gametes.push(eighth);
-                gametes.push(ninth);
-                gametes.push(tenth);
-                gametes.push(eleventh);
-                gametes.push(twelth);
-                gametes.push(thirteenth);
-                gametes.push(fourteenth);
-                gametes.push(fifteenth);
-                gametes.push(sixteenth);
-                gametes.push(seventeenth);
-                gametes.push(eighteenth);
-                gametes.push(nineteenth);
-                gametes.push(twentieth);
-                gametes.push(twentyOne);
-                gametes.push(twentyTwo);
-                gametes.push(twentyThree);
-                gametes.push(twentyFour);
-                gametes.push(twentyFive);
-                gametes.push(twentySix);
-                gametes.push(twentySeven);
-                gametes.push(twentyEight);
-                gametes.push(twentyNine);
-                gametes.push(thirty);
-                gametes.push(thirtyOne);
-                gametes.push(thirtyTwo);
-                return gametes;
-            }else{
-                var impossible = "No one can solve this!!!";
-                return impossible;
-            }
-        }
-        
-        function possibleOffSpring(g1,g2){
-            var offspring = []
-            for(var r = 0; r < g1.length; r++){
-                for(var c = 0; c < g2.length; c++){
-                    var value = "";
-                    for(var i = 0; i < numTraits; i++){
-                        if(g1[r].charAt(i) == g1[r].charAt(i).toUpperCase()){
-                            value += (g1[r].charAt(i) + g2[c].charAt(i));
-                        }else if(g2[c].charAt(i) == g2[c].charAt(i).toUpperCase()){
-                            value += (g2[c].charAt(i) + g1[r].charAt(i));
-                        }else{
-                            value += (g2[c].charAt(i) + g1[r].charAt(i));
-                        }
-                    }
-                    offspring.push(value);
-                }
-            }
-            return offspring;
-        }
-        
-        function buildBox(p){
-            var c=document.getElementById("myCanvas");
-            var ctx=c.getContext("2d");
-            ctx.clearRect(0,0,c.width,c.height);
-            var sideBox = Math.sqrt(p.length);
-            var boxLength = 750/sideBox;
-            for(var i = 0; i < sideBox; i ++){
-                for(var z = 0; z < sideBox; z++){
-                    ctx.beginPath();
-                    ctx.rect(125 + i * boxLength,180 + z * boxLength, boxLength,boxLength);
-                    ctx.stroke();
-                    var fontNum = 50/(2*numTraits);
-                    ctx.font = fontNum + "px Arial";
-                    ctx.strokeText(p[i + sideBox*z],125 + i*boxLength ,230 + z * boxLength + boxLength/4);
-                }
-            }
-            
-            for(var a = 0; a < sideBox; a++){
-                var vFont;
-                if(numTraits != 5){
-                    vFont = 50/(2*numTraits);
-                }else{
-                    vFont = 2;
-                }
-                ctx.font = vFont +"px Arial";
-                if(numTraits != 5){
-                    ctx.strokeText(p1Gametes[a],125 - boxLength/4,230+boxLength/2+a*boxLength);
-                }else{
-                    ctx.strokeText(p1Gametes[a],125 - boxLength,230 + boxLength/2 + a*boxLength);
-                }
-            }
-            for(var t = 0; t < sideBox; t++){
-                var hFont;
-                if(numTraits != 5){
-                    hFont = 50/(2*numTraits);
-                }else{
-                    hFont = 2;
-                }
-                ctx.font = hFont + "px Arial";
-                ctx.strokeText(p2Gametes[t],125 + boxLength/2 + boxLength*t,230 - boxLength/5);
-            }
-            
-            ctx.font = "20px Arial";
-            ctx.strokeText("P1 Generation: " + par1,125,15)
-            ctx.strokeText("P2 Generation: " + par2,125,35);
-            ctx.strokeText("Parent 1 gametes: " + p1Gametes,125,55);
-            ctx.strokeText("Parent 2 gametes: " + p2Gametes,125,75);
-            ctx.strokeText("All gametes: " + y,125,95);
-        }
-        
-        function findNonRepetitiveGenes(p){
-            var arr = [];
-            for(var i = 0; i < p.length; i++){
-                if(i == 0){
-                    arr.push(p[i]);
-                }else{
-                    for(var a = i-1; a >= 0; a--){
-                        if(p[i] == p[a]){
-                            break;
-                        }
-                        if(a == 0){
-                            arr.push(p[i]);
-                        }
-                    }
-                }
-            }
-            return arr;
-        }
-        
+<script>
+	var finalArr = [];
+	var numTraits;
+	var par1;
+	var par2;
+	var p1Gametes;
+	var p2Gametes;
+	var y;
+	var z;
+	var x;
+	var arr = [];
+	function start(){
+		par1 = prompt("Write the P1 Generation Genotype!");
+		numTraits = par1.length/2
+		par2 = prompt("Write the P2 Generation Genotypes!");
+		p1Gametes = createGametes(par1);
+		p2Gametes = createGametes(par2);
+		x = possibleOffSpring(p1Gametes,p2Gametes);
+		y = findNonRepetitiveGenes(x);
+		z = findGenotypicRatios(y,x);
+		buildBox(x);
+	}
+	
+	
+	function createGametes(p1){
+		var gametes = [];
+		if(numTraits == 1){
+			gametes.push(p1.charAt(0));
+			gametes.push(p1.charAt(1));
+			return gametes;
+		}else if(numTraits == 2){
+			var first = p1.charAt(0) + p1.charAt(2);
+			var second = p1.charAt(0) + p1.charAt(3);
+			var third = p1.charAt(1) + p1.charAt(2);
+			var fourth = p1.charAt(1) + p1.charAt(3);
+			gametes.push(first);
+			gametes.push(second);
+			gametes.push(third);
+			gametes.push(fourth);
+			return gametes;
+		}else if(numTraits == 3){
+			var first = p1.charAt(0) + p1.charAt(2) + p1.charAt(4);
+			var second = p1.charAt(0) + p1.charAt(2) + p1.charAt(5);
+			var third = p1.charAt(0) + p1.charAt(3) + p1.charAt(4);
+			var fourth = p1.charAt(0) + p1.charAt(3) + p1.charAt(5);
+			var fifth = p1.charAt(0) + p1.charAt(2) + p1.charAt(4);
+			var sixth = p1.charAt(0) + p1.charAt(2) + p1.charAt(5);
+			var seventh= p1.charAt(0) + p1.charAt(3) + p1.charAt(4);
+			var eighth = p1.charAt(0) + p1.charAt(3) + p1.charAt(5);
+			gametes.push(first);
+			gametes.push(second);
+			gametes.push(third);
+			gametes.push(fourth);
+			gametes.push(fifth);
+			gametes.push(sixth);
+			gametes.push(seventh);
+			gametes.push(eighth);
+			return gametes;
+        }else if(numTraits == 4){
+	        var first = p1.charAt(0) + p1.charAt(2) + p1.charAt(4) + p1.charAt(6);
+	        var second = p1.charAt(0) + p1.charAt(2) + p1.charAt(4) + p1.charAt(7);
+	        var third = p1.charAt(0) + p1.charAt(2) + p1.charAt(5) + p1.charAt(6);
+	        var fourth  = p1.charAt(0) + p1.charAt(2) + p1.charAt(5) + p1.charAt(7);
+	        var fifth = p1.charAt(0) + p1.charAt(3) + p1.charAt(4) + p1.charAt(6);
+	        var sixth = p1.charAt(0) + p1.charAt(3) + p1.charAt(4) + p1.charAt(7);
+	        var seventh = p1.charAt(0) + p1.charAt(3) + p1.charAt(5) + p1.charAt(6);
+	        var eighth  = p1.charAt(0) + p1.charAt(3) + p1.charAt(5) + p1.charAt(7);
+	        var ninth = p1.charAt(1) + p1.charAt(2) + p1.charAt(4) + p1.charAt(6);
+	        var tenth = p1.charAt(1) + p1.charAt(2) + p1.charAt(4) + p1.charAt(7);
+	        var eleventh = p1.charAt(1) + p1.charAt(2) + p1.charAt(5) + p1.charAt(6);
+	        var twelth  = p1.charAt(1) + p1.charAt(2) + p1.charAt(5) + p1.charAt(7);
+	        var thirteenth = p1.charAt(1) + p1.charAt(3) + p1.charAt(4) + p1.charAt(6);
+	        var fourteenth = p1.charAt(1) + p1.charAt(3) + p1.charAt(4) + p1.charAt(7);
+	        var fifteenth = p1.charAt(1) + p1.charAt(3) + p1.charAt(5) + p1.charAt(6);
+	        var sixteenth  = p1.charAt(1) + p1.charAt(3) + p1.charAt(5) + p1.charAt(7);
+	        gametes.push(first);
+	        gametes.push(second);
+	        gametes.push(third);
+	        gametes.push(fourth);
+	        gametes.push(fifth);
+	        gametes.push(sixth);
+	        gametes.push(seventh);
+	        gametes.push(eighth);
+	        gametes.push(ninth);
+	        gametes.push(tenth);
+	        gametes.push(eleventh);
+	        gametes.push(twelth);
+	        gametes.push(thirteenth);
+	        gametes.push(fourteenth);
+	        gametes.push(fifteenth);
+	        gametes.push(sixteenth);
+	        return gametes;
+        }else if(numTraits == 5){
+	        var first = p1.charAt(0) + p1.charAt(2) + p1.charAt(4) + p1.charAt(6) + p1.charAt(8);
+	        var second = p1.charAt(0) + p1.charAt(2) + p1.charAt(4) + p1.charAt(6) + p1.charAt(9);
+	        var third = p1.charAt(0) + p1.charAt(2) + p1.charAt(4) + p1.charAt(7) + p1.charAt(8);
+	        var fourth = p1.charAt(0) + p1.charAt(2) + p1.charAt(4) + p1.charAt(7) + p1.charAt(9);
+	        var fifth = p1.charAt(0) + p1.charAt(2) + p1.charAt(5) + p1.charAt(6) + p1.charAt(8);
+	        var sixth = p1.charAt(0) + p1.charAt(2) + p1.charAt(5) + p1.charAt(6) + p1.charAt(9);
+	        var seventh = p1.charAt(0) + p1.charAt(2) + p1.charAt(5) + p1.charAt(7) + p1.charAt(8);
+	        var eighth = p1.charAt(0) + p1.charAt(2) + p1.charAt(5) + p1.charAt(7) + p1.charAt(9);
+	        var ninth = p1.charAt(0) + p1.charAt(3) + p1.charAt(4) + p1.charAt(6) + p1.charAt(8);
+	        var tenth = p1.charAt(0) + p1.charAt(3) + p1.charAt(4) + p1.charAt(6) + p1.charAt(9);
+	        var eleventh = p1.charAt(0) + p1.charAt(3) + p1.charAt(4) + p1.charAt(7) + p1.charAt(8);
+	        var twelth = p1.charAt(0) + p1.charAt(3) + p1.charAt(4) + p1.charAt(7) + p1.charAt(9);
+	        var thirteenth = p1.charAt(0) + p1.charAt(3) + p1.charAt(5) + p1.charAt(6) + p1.charAt(8);
+	        var fourteenth = p1.charAt(0) + p1.charAt(3) + p1.charAt(5) + p1.charAt(6) + p1.charAt(9);
+	        var fifteenth = p1.charAt(0) + p1.charAt(3) + p1.charAt(5) + p1.charAt(7) + p1.charAt(8);
+	        var sixteenth = p1.charAt(0) + p1.charAt(3) + p1.charAt(5) + p1.charAt(7) + p1.charAt(9);
+	        var seventeenth = p1.charAt(1) + p1.charAt(2) + p1.charAt(4) + p1.charAt(6) + p1.charAt(8);
+	        var eighteenth = p1.charAt(1) + p1.charAt(2) + p1.charAt(4) + p1.charAt(6) + p1.charAt(9);
+	        var nineteenth = p1.charAt(1) + p1.charAt(2) + p1.charAt(4) + p1.charAt(7) + p1.charAt(8);
+	        var twentieth = p1.charAt(1) + p1.charAt(2) + p1.charAt(4) + p1.charAt(7) + p1.charAt(9);
+	        var twentyOne = p1.charAt(1) + p1.charAt(2) + p1.charAt(5) + p1.charAt(6) + p1.charAt(8);
+	        var twentyTwo = p1.charAt(1) + p1.charAt(2) + p1.charAt(5) + p1.charAt(6) + p1.charAt(9);
+	        var twentyThree = p1.charAt(1) + p1.charAt(2) + p1.charAt(5) + p1.charAt(7) + p1.charAt(8);
+	        var twentyFour = p1.charAt(1) + p1.charAt(2) + p1.charAt(5) + p1.charAt(7) + p1.charAt(9);
+	        var twentyFive = p1.charAt(1) + p1.charAt(3) + p1.charAt(4) + p1.charAt(6) + p1.charAt(8);
+	        var twentySix = p1.charAt(1) + p1.charAt(3) + p1.charAt(4) + p1.charAt(6) + p1.charAt(9);
+	        var twentySeven = p1.charAt(1) + p1.charAt(3) + p1.charAt(4) + p1.charAt(7) + p1.charAt(8);
+	        var twentyEight = p1.charAt(1) + p1.charAt(3) + p1.charAt(4) + p1.charAt(7) + p1.charAt(9);
+	        var twentyNine = p1.charAt(1) + p1.charAt(3) + p1.charAt(5) + p1.charAt(6) + p1.charAt(8);
+	        var thirty = p1.charAt(1) + p1.charAt(3) + p1.charAt(5) + p1.charAt(6) + p1.charAt(9);
+	        var thirtyOne = p1.charAt(1) + p1.charAt(3) + p1.charAt(5) + p1.charAt(7) + p1.charAt(8);
+	        var thirtyTwo = p1.charAt(1) + p1.charAt(3) + p1.charAt(5) + p1.charAt(7) + p1.charAt(9);
+	        gametes.push(first);
+	        gametes.push(second);
+	        gametes.push(third);
+	        gametes.push(fourth);
+	        gametes.push(fifth);
+	        gametes.push(sixth);
+	        gametes.push(seventh);
+	        gametes.push(eighth);
+	        gametes.push(ninth);
+	        gametes.push(tenth);
+	        gametes.push(eleventh);
+	        gametes.push(twelth);
+	        gametes.push(thirteenth);
+	        gametes.push(fourteenth);
+	        gametes.push(fifteenth);
+	        gametes.push(sixteenth);
+	        gametes.push(seventeenth);
+	        gametes.push(eighteenth);
+	        gametes.push(nineteenth);
+	        gametes.push(twentieth);
+	        gametes.push(twentyOne);
+	        gametes.push(twentyTwo);
+	        gametes.push(twentyThree);
+	        gametes.push(twentyFour);
+	        gametes.push(twentyFive);
+	        gametes.push(twentySix);
+	        gametes.push(twentySeven);
+	        gametes.push(twentyEight);
+	        gametes.push(twentyNine);
+	        gametes.push(thirty);
+	        gametes.push(thirtyOne);
+	        gametes.push(thirtyTwo);
+	        return gametes;
+	    }else{
+		    var impossible = "No one can solve this!!!";
+		    return impossible;
+	    } 
+	}
+	
+	function possibleOffSpring(g1,g2){
+		var offspring = []
+		for(var r = 0; r < g1.length; r++){
+			for(var c = 0; c < g2.length; c++){
+				var value = "";
+				for(var i = 0; i < numTraits; i++){
+					if(g1[r].charAt(i) == g1[r].charAt(i).toUpperCase()){
+						value += (g1[r].charAt(i) + g2[c].charAt(i));
+					}else if(g2[c].charAt(i) == g2[c].charAt(i).toUpperCase()){
+						value += (g2[c].charAt(i) + g1[r].charAt(i));
+					}else{
+						value += (g2[c].charAt(i) + g1[r].charAt(i));
+					}
+				}
+				offspring.push(value);
+			}
+		}
+		return offspring;
+	}
+	
+	function buildBox(p){
+		var c=document.getElementById("myCanvas");
+		var ctx=c.getContext("2d");
+		ctx.clearRect(0,0,c.width,c.height);
+		var sideBox = Math.sqrt(p.length);
+		var boxLength = 750/sideBox;
+		for(var i = 0; i < sideBox; i ++){
+			for(var z = 0; z < sideBox; z++){
+				ctx.beginPath();
+				ctx.rect(125 + i * boxLength,180 + z * boxLength, boxLength,boxLength);
+				ctx.stroke(); 
+				var fontNum = 50/(2*numTraits);
+				ctx.font = fontNum + "px Arial";
+				ctx.strokeText(p[i + sideBox*z],125 + i*boxLength ,230 + z * boxLength + boxLength/4);				
+			}
+		}			
+		
+		for(var a = 0; a < sideBox; a++){
+			var vFont;
+			if(numTraits != 5){
+				vFont = 50/(2*numTraits);
+			}else{
+				vFont = 2;
+			}	
+			ctx.font = vFont +"px Arial";
+			if(numTraits != 5){
+				ctx.strokeText(p1Gametes[a],125 - boxLength/4,230+boxLength/2+a*boxLength);
+			}else{
+				ctx.strokeText(p1Gametes[a],125 - boxLength,230 + boxLength/2 + a*boxLength);
+			}
+		}
+		for(var t = 0; t < sideBox; t++){
+			var hFont;
+			if(numTraits != 5){
+				hFont = 50/(2*numTraits);
+			}else{
+				hFont = 2;
+			}	
+			ctx.font = hFont + "px Arial";
+			ctx.strokeText(p2Gametes[t],125 + boxLength/2 + boxLength*t,230 - boxLength/5);
+		}
+
+		ctx.font = "20px Arial";
+		ctx.strokeText("P1 Generation: " + par1,125,15)
+		ctx.strokeText("P2 Generation: " + par2,125,35);
+		ctx.strokeText("Parent 1 gametes: " + p1Gametes,125,55);
+		ctx.strokeText("Parent 2 gametes: " + p2Gametes,125,75);
+		ctx.strokeText("All gametes: " + y,125,95);
+	}
+	
+	function findNonRepetitiveGenes(p){
+		var arr = [];
+		for(var i = 0; i < p.length; i++){
+			if(i == 0){
+				arr.push(p[i]);
+			}else{
+				for(var a = i-1; a >= 0; a--){
+					if(p[i] == p[a]){
+						break;
+					}
+					if(a == 0){
+						arr.push(p[i]);	
+					}
+				}
+			}
+		}
+		return arr;
+	}
+	
+	function findGenotypicRatios(b,c){
+		var usedArr = [];
+		
+		
+		for(var i = 0; i < c.length; i++){
+			if(c[i] == b[i]){
+				var trueOrFalse = true;
+				for(var t = 0; t < usedArr.length; t++){
+					if(usedArr[t] ==  b[i]){
+						trueOrFalse = false;
+						break;	
+					}else{
+						trueOrFalse = true;
+					}
+				}
+				if(trueOrFalse == true){
+					var counter = 0;
+					usedArr.push(b[i]);
+					for(var z = 0; z < c.length; z++){
+						if(c[z] == b[i]){
+							counter++;
+						}
+					}
+					finalArr.push(b[i] + ": " +  counter);
+
+				}	
+				
+				
+			}
+		}
+		console.log(finalArr);
+		return finalArr;
+				
+		/*var newArr = [];
+		for(var i = 0; i < b.length;i++){
+			var g = 0;
+			for(var a = 0; a < c.length;a++){
+				if(b[i] == c[a]){
+					g++;
+				}
+			}
+			newArr[i] = g;
+			newArr[newArr.length - 1] = g;
+		}
+		console.log(newArr);
+		return newArr;*/
+	}
+		
+</script> 
+<button onclick="start()">Make the Punnett Square!</button>
             </body>
 </html>
