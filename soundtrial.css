@@ -5,7 +5,11 @@
 }
 
 .navbar-nav>li>a {
-    padding-top: 10px;
+    padding-top: 10px
     padding-bottom: 10px;
     line-height: 30px;
+}
+
+body {
+	background-image: url("gray-floral-new2.png");
 }
