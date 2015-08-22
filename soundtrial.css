@@ -13,3 +13,25 @@
 body {
 	background-image: url("gray-floral-new2.png");
 }
+
+
+.navbar-default .navbar-brand{
+	color: #ff7700;
+}
+
+
+.navbar-default .navbar-nav>li>a {
+	color: #ff7700;
+}
+
+a {
+	color: #ff7700;
+}
+
+h1 {
+	color: #ff7700;
+}
+
+.jumbotron h1{
+	color: #ff7700;
+}
